@@ -1,11 +1,16 @@
 import React from "react";
+// import axios from "axios";
+import Navigation from "./components/Navigation/Navigation";
+import Fixtures from "./components/Fixtures/Fixtures";
 
 
-function App() {
+
+const App = () => {
 
   return (
     <div>
-
+      <Navigation></Navigation>
+      <Fixtures></Fixtures>
     </div>
   );
 }

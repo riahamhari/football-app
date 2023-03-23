@@ -1,0 +1,13 @@
+.navbar-container {
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.navbar-container a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+
+}

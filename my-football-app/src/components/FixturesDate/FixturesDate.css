@@ -1,0 +1,17 @@
+.fixtures-date {
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+    justify-content: center;
+}
+
+
+.fixtures-date_item {
+    margin: 0 1rem;
+
+}
+
+.fixtures-date_item span {
+    display: block;
+    font-size: 12px;
+}
