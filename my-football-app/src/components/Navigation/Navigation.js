@@ -4,6 +4,8 @@ import Card from "../UI/Card";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './Navigation.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { solid } from '@fortawesome/fontawesome-svg-core/import.macro'
 
 const Navigation = () => {
     return (
@@ -11,7 +13,9 @@ const Navigation = () => {
         <Navbar className="navbar-container" bg="dark" variant="dark">
             <Navbar.Brand href="#home"></Navbar.Brand>
             <Nav className="mr-auto">
-                <Nav.Link href="#scores">Scores</Nav.Link>
+                <Nav.Link href="#scores">
+                    {/* <FontAwesomeIcon icon={solid("futbol")} /> */}
+                    Scores</Nav.Link>
                 <Nav.Link href="#favourites">Favourites</Nav.Link>
                 <Nav.Link href="#news">News</Nav.Link>
             </Nav>

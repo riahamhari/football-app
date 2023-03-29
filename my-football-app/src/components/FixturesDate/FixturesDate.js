@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import Card from "../UI/Card";
 import dayjs from 'dayjs';
 import './FixturesDate.css'
 import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 var localizedFormat = require('dayjs/plugin/localizedFormat')
 dayjs.extend(localizedFormat)
@@ -18,12 +23,20 @@ const FixturesDate = (props) => {
     const [selectedDate, setSelectedDate] = useState(today.toISOString().split('T')[0])
 
 
+    const [show, setShow] = useState(false)
+    const [startDate, setStartDate] = useState(new Date())
+
+
 
     const handleDateClick = (date) => {
+
         setSelectedDate(date)
-        props.onDateClick(selectedDate);
-        console.log(date)
+        props.onDateClick(date);
+
     };
+
+
+
 
     return (
         <div className="fixtures-date">
@@ -58,6 +71,30 @@ const FixturesDate = (props) => {
                     <span>{dayjs(dayAfter).format('ll').split(' ')[1].split(',')[0] + ' ' + dayjs(dayAfter).format('ll').split(' ')[0].toUpperCase()}</span>
                 </Button>
             </div>
+            <div className="fixtures-date_item">
+                <Button onClick={() => setShow(true)} variant="dark" className="btn-lg">
+
+                    <FontAwesomeIcon icon={icon({ name: 'calendar-days', style: 'regular' })} />
+
+                </Button>
+                {show &&
+                    <DatePicker
+                        selected={startDate}
+                        onChange={(date) => {
+                            setStartDate(date)
+                            handleDateClick(date.toISOString().split('T')[0])
+                        }}
+                        inline
+                        onSelect={() => {
+
+                            setShow(false)
+                        }}
+                        onClickOutside={() => setShow(false)}
+                    />
+                }
+
+            </div>
+
         </div >
     )
 }
