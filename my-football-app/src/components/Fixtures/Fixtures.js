@@ -14,6 +14,8 @@ const Fixtures = (props) => {
     const [bundesligaFixtures, setBundesligaFixtures] = useState([]);
     const [serieAFixtures, setSerieAFixtures] = useState([]);
     const [ligueUnFixtures, setLigueUnFixtures] = useState([])
+    const [uclFixtures, setUclFixtures] = useState([])
+
 
     const [selectedDate, setSelectedDate] = useState(dayjs().toISOString().split('T')[0])
 
@@ -26,107 +28,50 @@ const Fixtures = (props) => {
     };
 
 
+
+
     useEffect(() => {
 
-        const optionsPrem = {
-            method: "GET",
-            url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-            params: {
-                date: selectedDate,
-                league: "39",
-                season: "2022",
-            },
-            headers: {
-                "X-RapidAPI-Key": "b1513e9a36mshe6cf50be59827ddp118da0jsn265295c7625f",
-                "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-            },
-        };
-        axios.request(optionsPrem).then(function (response) {
-            console.log(response.data.response);
-            setPremierFixtures(response.data.response)
-        }).catch(function (error) {
-            console.error(error);
-        });
+        const leagues = ["39", "140", "78", "135", "61", "2"]
 
-        const optionsLaLiga = {
-            method: "GET",
-            url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-            params: {
-                date: selectedDate,
-                league: "140",
-                season: "2022",
-            },
-            headers: {
-                "X-RapidAPI-Key": "b1513e9a36mshe6cf50be59827ddp118da0jsn265295c7625f",
-                "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-            },
-        };
-        axios.request(optionsLaLiga).then(function (response) {
-            console.log(response.data.response);
-            setLaLigaFixtures(response.data.response)
-        }).catch(function (error) {
-            console.error(error);
-        });
 
-        const optionsBundesliga = {
-            method: "GET",
-            url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-            params: {
-                date: selectedDate,
-                league: "78",
-                season: "2022",
-            },
-            headers: {
-                "X-RapidAPI-Key": "b1513e9a36mshe6cf50be59827ddp118da0jsn265295c7625f",
-                "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-            },
-        };
-        axios.request(optionsBundesliga).then(function (response) {
-            console.log(response.data.response);
-            setBundesligaFixtures(response.data.response)
-        }).catch(function (error) {
-            console.error(error);
-        });
+        const fetchFixtures = (league) => {
 
-        const optionsSerieA = {
-            method: "GET",
-            url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-            params: {
-                date: selectedDate,
-                league: "135",
-                season: "2022",
-            },
-            headers: {
-                "X-RapidAPI-Key": "b1513e9a36mshe6cf50be59827ddp118da0jsn265295c7625f",
-                "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-            },
-        };
-        axios.request(optionsSerieA).then(function (response) {
-            console.log(response.data.response);
-            setSerieAFixtures(response.data.response)
-        }).catch(function (error) {
-            console.error(error);
-        });
+            const options = {
+                method: "GET",
+                url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
+                params: {
+                    date: selectedDate,
+                    league,
+                    season: "2022",
+                },
+                headers: {
+                    "X-RapidAPI-Key": "b1513e9a36mshe6cf50be59827ddp118da0jsn265295c7625f",
+                    "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+                },
+            };
+            return axios.request(options).then((response) => response.data.response)
+                .catch(error => {
+                    console.error(error)
+                    return [];
+                });
+        }
 
-        const optionsLigueUn = {
-            method: "GET",
-            url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
-            params: {
-                date: selectedDate,
-                league: "61",
-                season: "2022",
-            },
-            headers: {
-                "X-RapidAPI-Key": "b1513e9a36mshe6cf50be59827ddp118da0jsn265295c7625f",
-                "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
-            },
+
+        const fetchData = () => {
+            Promise.all(leagues.map((league) => fetchFixtures(league)))
+                .then(fixtures => {
+                    // console.log(fixtures)
+                    setPremierFixtures(fixtures[0]);
+                    setLaLigaFixtures(fixtures[1]);
+                    setBundesligaFixtures(fixtures[2]);
+                    setSerieAFixtures(fixtures[3]);
+                    setLigueUnFixtures(fixtures[4]);
+                    setUclFixtures(fixtures[5])
+                })
         };
-        axios.request(optionsLigueUn).then(function (response) {
-            console.log(response.data.response);
-            setLigueUnFixtures(response.data.response)
-        }).catch(function (error) {
-            console.error(error);
-        });
+        fetchData()
+
 
 
 
@@ -145,6 +90,7 @@ const Fixtures = (props) => {
                 bundesligaFixtures={bundesligaFixtures}
                 serieAFixtures={serieAFixtures}
                 ligueUnFixtures={ligueUnFixtures}
+                uclFixtures={uclFixtures}
             >
 
 
