@@ -7,6 +7,8 @@ import dayjs from 'dayjs'
 
 //premier - 39 bundesliga- 78, ligue Un -61, serie A-135, la liga -140
 
+const cache = {}
+
 const Fixtures = (props) => {
 
     const [premierFixtures, setPremierFixtures] = useState([]);
@@ -32,10 +34,16 @@ const Fixtures = (props) => {
 
     useEffect(() => {
 
+
         const leagues = ["39", "140", "78", "135", "61", "2"]
 
 
         const fetchFixtures = (league) => {
+            const cacheKey = `${league}-${selectedDate}`
+
+            if (cache[cacheKey]) {
+                return Promise.resolve(cache[cacheKey]);
+            }
 
             const options = {
                 method: "GET",
@@ -50,7 +58,11 @@ const Fixtures = (props) => {
                     "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
                 },
             };
-            return axios.request(options).then((response) => response.data.response)
+            return axios.request(options).then((response) => {
+                const fixtures = response.data.response
+                cache[cacheKey] = fixtures
+                return fixtures
+            })
                 .catch(error => {
                     console.error(error)
                     return [];

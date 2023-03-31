@@ -20,7 +20,7 @@ const FixturesDate = (props) => {
     const dayAfter = tomorrow.add(1, 'day');
 
 
-    const [selectedDate, setSelectedDate] = useState(today.toISOString().split('T')[0])
+    // const [selectedDate, setSelectedDate] = useState(today.toISOString().split('T')[0])
 
 
     const [show, setShow] = useState(false)
@@ -30,7 +30,7 @@ const FixturesDate = (props) => {
 
     const handleDateClick = (date) => {
 
-        setSelectedDate(date)
+        // setSelectedDate(date)
         props.onDateClick(date);
 
     };
