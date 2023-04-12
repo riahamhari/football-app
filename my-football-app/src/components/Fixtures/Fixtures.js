@@ -71,6 +71,10 @@ const Fixtures = (props) => {
 
 
         const fetchData = () => {
+            // Promise.all is a method used to wait for all the Promises in an array to resolve or reject. 
+            // It returns a new Promise that resolves to an array of the resolved values from each Promise in the array,
+            //  in the same order as the original array.
+
             Promise.all(leagues.map((league) => fetchFixtures(league)))
                 .then(fixtures => {
                     // console.log(fixtures)
