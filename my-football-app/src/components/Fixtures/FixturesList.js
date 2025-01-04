@@ -5,13 +5,20 @@ import uniqid from "uniqid"
 
 const FixturesList = (props) => {
 
-    console.log(props)
+
 
     return (
         <Card>
+
+
             <ul className="fixtures-list">
 
-                <h2>Premier League</h2>
+                {props.premierFixtures.length > 0 ? (
+                    <h2>Premier League</h2>
+                ) : (
+                    <h2>No Premier League Fixtures!</h2>
+                )}
+
                 {props.premierFixtures.map((premFixture) => (
                     <FixturesItem
                         key={uniqid()}
@@ -22,7 +29,12 @@ const FixturesList = (props) => {
                         time={new Date(premFixture.fixture.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     />
                 ))}
-                <h2>La Liga</h2>
+                {props.laLigaFixtures.length > 0 ? (
+                    <h2>La Liga</h2>
+                ) : (
+                    <h2>No La Liga Fixtures!</h2>
+                )}
+
                 {props.laLigaFixtures.map((laLigaFixture) => (
                     <FixturesItem
                         key={uniqid()}
@@ -33,7 +45,12 @@ const FixturesList = (props) => {
                         time={new Date(laLigaFixture.fixture.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     />
                 ))}
-                <h2>Bundesliga</h2>
+                {props.bundesligaFixtures.length > 0 ? (
+                    <h2>Bundesliga</h2>
+                ) : (
+                    <h2>No Bundesliga Fixtures!</h2>
+                )}
+
                 {props.bundesligaFixtures.map((bundesligaFixture) => (
                     <FixturesItem
                         key={uniqid()}
@@ -44,7 +61,12 @@ const FixturesList = (props) => {
                         time={new Date(bundesligaFixture.fixture.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     />
                 ))}
-                <h2>Serie A</h2>
+                {props.serieAFixtures.length > 0 ? (
+                    <h2>Serie A</h2>
+                ) : (
+                    <h2>No Serie A Fixtures!</h2>
+                )}
+
                 {props.serieAFixtures.map((serieAFixture) => (
                     <FixturesItem
                         key={uniqid()}
@@ -55,7 +77,12 @@ const FixturesList = (props) => {
                         time={new Date(serieAFixture.fixture.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     />
                 ))}
-                <h2>Ligue 1</h2>
+                {props.ligueUnFixtures.length > 0 ? (
+                    <h2>Ligue 1</h2>
+                ) : (
+                    <h2>No Ligue 1 Fixtures!</h2>
+                )}
+
                 {props.ligueUnFixtures.map((ligueUnFixture) => (
                     <FixturesItem
                         key={uniqid()}
@@ -66,7 +93,12 @@ const FixturesList = (props) => {
                         time={new Date(ligueUnFixture.fixture.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     />
                 ))}
-                <h2>Uefa Champions League</h2>
+                {props.uclFixtures.length > 0 ? (
+                    <h2>UEFA Champion's League</h2>
+                ) : (
+                    <h2>No UEFA Champion's League Fixtures!</h2>
+                )}
+
                 {props.uclFixtures.map((uclFixture) => (
                     <FixturesItem
                         key={uniqid()}
